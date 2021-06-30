@@ -6,7 +6,8 @@ root = tk.Tk()
 HEADER = 64
 PORT = 12345
 FORMAT = "utf-8"
-SERVER = "192.168.0.105"
+SERVER = socket.gethostbyname(socket.gethostname())
+print(SERVER)
 ADDR = (SERVER, PORT)
 BUF = 1024
 
@@ -16,15 +17,11 @@ client.connect(ADDR)
 def send(event=None):
     message = my_msg.get()
     my_msg.set("")
-    client.send(message)
-    if message == "!quit" :
+    client.send(bytes(message, FORMAT))
+    if message == "!quit":
         client.close()
         root.quit()
     
-
-    
-        
-
 def receive():
     while True:
         try :
@@ -32,8 +29,6 @@ def receive():
             msg_list.insert(tk.END,msg)
         except OSError:
             break
-
-
 
 root.title("GroupChat")
 

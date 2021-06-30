@@ -4,7 +4,8 @@ import threading
 
 BUF = 1024
 PORT = 12345
-SERVER = "192.168.0.105"
+HOSTNAME = socket.gethostname()
+SERVER = socket.gethostbyname(HOSTNAME)
 FORMAT = 'utf-8'
 ADDR = (SERVER, PORT)
 clients = {}
@@ -45,7 +46,7 @@ def broadcast(msg, identify=""):
             
 def start():
     soc.listen(5)
-    print(f"<Listening> on {SERVER}")
+    print(f"{HOSTNAME} <Listening> on {SERVER}")
     while True:
         conn, addr = soc.accept()
         conn.send(bytes("Enter your name and press enter. Enter !quit to exit", FORMAT))
