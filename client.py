@@ -32,6 +32,7 @@ def receive():
 
 root.title("GroupChat")
 
+
 msg_frame = tk.Frame(root)
 my_msg = tk.StringVar()
 my_msg.set("Type here")
