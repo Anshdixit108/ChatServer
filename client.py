@@ -1,4 +1,5 @@
 import socket
+import time
 import threading
 import tkinter as tk
 root = tk.Tk()
@@ -18,15 +19,18 @@ def send(event=None):
     message = my_msg.get()
     my_msg.set("")
     client.send(bytes(message, FORMAT))
-    if message == "!quit":
+    if message == "/quit":
+        time.sleep(1)
         client.close()
-        root.quit()
+        root.destroy()
+
+
     
 def receive():
     while True:
         try :
             msg = client.recv(BUF).decode(FORMAT)
-            msg_list.insert(tk.END,msg)
+            msg_list.insert(tk.END, msg)
         except OSError:
             break
 
@@ -53,4 +57,3 @@ send_button.pack()
 thread = threading.Thread(target=receive)
 thread.start()
 tk.mainloop()
-
